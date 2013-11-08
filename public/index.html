@@ -1,0 +1,18 @@
+<h1>GF Tracker</h1>
+<input type="button" value="Post my location" onclick="startTracking();"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+function startTracking()
+{
+	navigator.geolocation.getCurrentPosition(function(position){
+		$.ajax({
+			url: 'post?latitude=' + position.coords.latitude + '&longitude=' + position.coords.longitude
+		});
+	},function(error){}, { enableHighAccuracy: true });
+	
+	setTimeout(function(){
+		startTracking();
+	}, 1000);
+}
+</script>
